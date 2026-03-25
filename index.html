@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Activity Dashboard</title>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">Activity Dashboard</h1>
+                <p class="app-subtitle">Track your daily progress</p>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="app-main">
+            <!-- TO-DO LIST SECTION -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📝 Daily Schedule</h2>
+                </div>
+                <div class="card-body">
+                    <div class="input-section">
+                        <div class="input-row">
+                            <input type="text" id="taskTitle" class="input-field" placeholder="Add task...">
+                            <input type="time" id="taskTime" class="input-field input-time">
+                        </div>
+                        <div class="input-row">
+                            <select id="taskPriority" class="input-field">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="app.addTask()">Add</button>
+                        </div>
+                    </div>
+                    <div class="tasks-container">
+                        <ul class="task-list" id="taskList"></ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HABIT TRACKER SECTION -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🎯 Habit Tracker</h2>
+                </div>
+                <div class="card-body">
+                    <div class="input-section">
+                        <div class="input-row">
+                            <input type="text" id="habitName" class="input-field" placeholder="Add new habit...">
+                            <button class="btn btn-primary" onclick="app.addHabit()">Add</button>
+                        </div>
+                    </div>
+                    <div class="habits-container">
+                        <ul class="habit-list" id="habitList"></ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STUDY TIMER SECTION -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">⏱️ Study Timer</h2>
+                </div>
+                <div class="card-body">
+                    <div class="timer-section">
+                        <div class="timer-display" id="timerDisplay">25:00</div>
+                        <div class="timer-label" id="timerLabel">Focus Time</div>
+
+                        <div class="timer-controls">
+                            <button class="btn btn-primary" onclick="app.startFocusTimer()">▶️ Focus (25m)</button>
+                            <button class="btn btn-secondary" onclick="app.startBreakTimer()">☕ Break (5m)</button>
+                            <button class="btn btn-secondary" onclick="app.pauseTimer()">⏸️ Pause</button>
+                            <button class="btn btn-secondary" onclick="app.resetTimer()">🔄 Reset</button>
+                        </div>
+
+                        <div class="timer-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Today's Sessions</span>
+                                <span class="stat-value" id="sessionsCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Study Time</span>
+                                <span class="stat-value" id="totalStudyTime">0m</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- JAPANESE LEARNING SECTION -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🗾 Japanese Learning</h2>
+                </div>
+                <div class="card-body">
+                    <div class="input-section">
+                        <div class="input-row">
+                            <input type="number" id="vocabInput" class="input-field" placeholder="Vocab learned"
+                                value="0">
+                            <input type="number" id="grammarInput" class="input-field" placeholder="Grammar points"
+                                value="0">
+                        </div>
+                        <div class="input-row">
+                            <select id="jlptLevel" class="input-field">
+                                <option value="">JLPT Target</option>
+                                <option value="N5">N5 (Beginner)</option>
+                                <option value="N4">N4 (Elementary)</option>
+                                <option value="N3">N3 (Intermediate)</option>
+                                <option value="N2">N2 (Upper-Int)</option>
+                                <option value="N1">N1 (Advanced)</option>
+                            </select>
+                            <input type="number" id="vocabGoal" class="input-field" placeholder="Goal" value="1000">
+                        </div>
+                        <div class="input-row">
+                            <input type="text" id="dailyNote" class="input-field" placeholder="Today's reflection...">
+                            <button class="btn btn-primary" onclick="app.addJLPTNote()">Save</button>
+                        </div>
+                    </div>
+
+                    <div class="jlpt-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Weekly Vocab</span>
+                            <span class="stat-value" id="weeklyVocab">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Study Streak</span>
+                            <span class="stat-value" id="studyStreak">0 🔥</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">JLPT Target</span>
+                            <span class="stat-value" id="currentJLPT">—</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-section">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="vocabProgress" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text" id="vocabProgressText">0 / 1000 words</div>
+                    </div>
+
+                    <div class="notes-section">
+                        <div class="notes-list" id="jlptNotes"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
